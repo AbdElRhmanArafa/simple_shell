@@ -21,13 +21,14 @@
 /** string module function 1*/
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
-int *_start_with(const char *s1, const char *s2);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
 /** string module function 2*/
+int _start_with(const char *s1, const char *s2);
 char *_strncpy(char *s1, char *s2, int len);
 char *_strncat(char *s1, char *s2, int len);
-char *_strchr(char *s2, char *s1);
+char *_strchr(char *s2,  int c);
+int is_delim(char c, const char *delim);
 /**  read / write  module function 3*/
 int _putchar(char c);
 void _puts_NewLine(char *);

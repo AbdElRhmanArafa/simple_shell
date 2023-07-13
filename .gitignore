@@ -56,3 +56,4 @@ dkms.conf
 .getignore
 ## ignore script file 
 script.bash
+main2.c
