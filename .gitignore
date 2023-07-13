@@ -54,3 +54,5 @@ Mkfile.old
 dkms.conf
 ## ignore .getignore
 .getignore
+## ignore script file 
+script.bash
