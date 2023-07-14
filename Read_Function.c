@@ -41,44 +41,46 @@ void _puts(char *str)
  * _strtok - used to split string into tokens based on a specified delimiter.
  * @s: string of array
  * @delim: specified delimiter
- * Return: string
+ * Return: array of  string after parse
  */
 char *_strtok(char *s, const char *delim)
 {
-	static char *next_token;
-	char *token_start = s;
+    static char *next_token;
+    char *token_start = s;
 
-	if (s == NULL)
-		s = next_token;
+    if (s == NULL)
+        s = next_token;
 
-	if (s == NULL)
-		return (NULL);
+    if (s == NULL)
+        return NULL;
 
-	while (is_delim(*s, delim))
-	{
-		s++;
-	}
+    while (*s != '\0' && strchr(delim, *s) != NULL)
+    {
+        s++;
+    }
 
-	if (*s == '\0')
-	{
-		next_token = NULL;
-		return (NULL);
-	}
+    if (*s == '\0')
+    {
+        next_token = NULL;
+        return NULL;
+    }
 
-	while (*s != '\0' && !is_delim(*s, delim))
-	{
-		s++;
-	}
+    token_start = s;
 
-	if (*s == '\0')
-		next_token = NULL;
-	else
-	{
-		*s = '\0';
-		next_token = s + 1;
-	}
+    while (*s != '\0' && strchr(delim, *s) == NULL)
+    {
+        s++;
+    }
 
-	return (token_start);
+    if (*s == '\0')
+        next_token = NULL;
+    else
+    {
+        *s = '\0';
+        next_token = s + 1;
+    }
+
+    return strdup(token_start);
 }
 
 /**

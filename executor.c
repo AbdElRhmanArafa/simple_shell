@@ -6,30 +6,45 @@
  */
 void execute_command(char **args)
 {
-	if (_strcmp(args[0], "exit" == 0))
+	if (_strcmp(args[0], "exit") == 0)
 	{
+		execute_exit(args);
+		return;
 	}
 	else if (_strcmp(args[0], "env") == 0)
 	{
-		/* code */
+		execute_env(args);
+		return;
 	}
 	else if (_strcmp(args[0], "cd") == 0)
 	{
-		/* code */
+		execute_cd(args);
+		return;
 	}
 	else if (_strcmp(args[0], "setenv") == 0)
 	{
-		/* code */
+		execute_setenv(args);
+		return;
 	}
 	else if (_strcmp(args[0], "unsetenv") == 0)
 	{
-		/* code */
+		execute_unsetenv(args);
+		return;
 	}
 	else if (_strcmp(args[0], "alias") == 0)
 	{
+		return;
 	}
 	else
 	{
 		execute_external_command(args);
 	}
+}
+/**
+ * 
+*/
+void execute_external_command(char **args)
+{
+	(void)args;
+	return;
 }

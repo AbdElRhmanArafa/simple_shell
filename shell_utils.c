@@ -4,9 +4,10 @@
  *
  * Return - void
  */
-void prompt(void)
+void prompt(char *path)
 {
-	_puts("$ ");
+	_puts(path);
+	_puts(" $ ");
 	fflush(stdout);
 }
 /**
