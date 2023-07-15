@@ -36,7 +36,7 @@ int is_delim(char c, const char *delim);
 int _putchar(char c);
 void _puts_NewLine(char *);
 void _puts(char *);
-char *my_getline();
+char *my_getline(void);
 char *_strtok(char *s, const char *delim);
 /*** shell_utils function*/
 void prompt(char *path);
@@ -55,5 +55,7 @@ int is_directory(char *path);
 int change_directory(char *path);
 int update_directory_env(char *current_path, char *previous_path);
 void change_current_directory(char *path);
-
+/** Mode_of_shell.c*/
+void handle_noninteractive_mode(int argc, char *argv[]);
+void handle_interactive_mode(void);
 #endif /*SIMPLE_SHELL_H*/

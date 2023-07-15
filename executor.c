@@ -60,7 +60,7 @@ void execute_external_command(char **args)
 	while (token != NULL)
 	{
 		program_path = malloc(MAX_PATH_LENGTH);
-		snprintf(program_path, MAX_PATH_LENGTH, "%s/%s", token, args[0]);
+		snprintf(program_path, MAX_PATH_LENGTH - 1, "%s/%s", token, args[0]);
 		if (stat(program_path, &st) == 0 && st.st_mode & S_IXUSR)
 		{
 			pid = fork();
