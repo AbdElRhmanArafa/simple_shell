@@ -18,6 +18,7 @@
 /**const */
 #define BUFFER_SIZE 1024
 #define MAX_INPUT_LENGTH 256
+#define MAX_PATH_LENGTH 256
 extern char **environ;
 /** string module function 1*/
 int _strlen(char *s);
