@@ -32,6 +32,8 @@ char *_strncpy(char *s1, char *s2, int len);
 char *_strncat(char *s1, char *s2, int len);
 char *_strchr(char *s2, int c);
 int is_delim(char c, const char *delim);
+/** string module function 3*/
+int _atoi(char *s);
 /**  read / write  module function 3*/
 int _putchar(char c);
 void _puts_NewLine(char *);
