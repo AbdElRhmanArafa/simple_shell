@@ -65,16 +65,16 @@ char *_strncat(char *s1, char *s2, int len)
  */
 char *_strchr(char *s, int c)
 {
-	while (*s2 != '\0')
+	while (*s != '\0')
 	{
-		if (*s2 == c)
-			return (s2);
-		s2++;
+		if (*s == c)
+			return (s);
+		s++;
 	}
 
 
 	if (c == '\0')
-		return (s2);
+		return (s);
 
 	return (NULL);
 }
