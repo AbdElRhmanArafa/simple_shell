@@ -1,6 +1,7 @@
 #include "simple_shell.h"
 /**
  * prompt - use to display in interactive mode
+ *@path: path.
  *
  * Return - void
  */

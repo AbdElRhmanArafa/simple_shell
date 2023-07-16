@@ -74,7 +74,7 @@ char *find_program_path(char *program_name, char *path)
 }
 
 /**
- * execute_command - execute a command
+ * execute_command_help_for_external - execute a command
  * @program_path: path of the program to execute
  * @args: arguments to the program
  * Return: void
