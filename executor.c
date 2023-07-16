@@ -41,53 +41,95 @@ void execute_command(char **args)
 	}
 }
 /**
- *
+ * find_program_path - find the path of a program
+ * @program_name: name of the program to find
+ * @path: the PATH environment variable
+ * Return: the path of the program, or NULL if not found
  */
-void execute_external_command(char **args)
+char *find_program_path(char *program_name, char *path)
 {
-	char *path, *token, *program_path;
-	pid_t pid;
-	int status;
+	char *token, *program_path;
 	struct stat st;
 
-	path = getenv("PATH");
-	if (path == NULL)
-	{
-		fprintf(stderr, "PATH Environment Not Set\n");
-		return;
-	}
 	token = _strtok(path, ":");
 	while (token != NULL)
 	{
 		program_path = malloc(MAX_PATH_LENGTH);
-		snprintf(program_path, MAX_PATH_LENGTH - 1, "%s/%s", token, args[0]);
+		if (program_path == NULL)
+		{
+			perror("malloc");
+			return (NULL);
+		}
+		_strcpy(program_path, token);
+		_strcat(program_path, "/");
+		_strcat(program_path, program_name);
 		if (stat(program_path, &st) == 0 && st.st_mode & S_IXUSR)
 		{
-			pid = fork();
-			if (pid == 0)
-			{
-				if (execvp(program_path, args) == -1)
-				{
-					perror("execvp");
-					free(program_path);
-					exit(EXIT_FAILURE);
-				}
-			}
-			else if (pid > 0)
-			{
-				waitpid(pid, &status, 0);
-				free(program_path);
-				return;
-			}
-			else
-			{
-				perror("fork");
-				free(program_path);
-				return;
-			}
+			return (program_path);
 		}
 		free(program_path);
 		token = _strtok(NULL, ":");
 	}
-	fprintf(stderr, "%s: command not found\n", args[0]);
+	return (NULL);
+}
+
+/**
+ * execute_command - execute a command
+ * @program_path: path of the program to execute
+ * @args: arguments to the program
+ * Return: void
+ */
+void execute_command_help_for_external(char *program_path, char **args)
+{
+	pid_t pid;
+	int status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (execvp(program_path, args) == -1)
+		{
+			perror("execvp");
+			free(program_path);
+			exit(EXIT_FAILURE);
+		}
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+		free(program_path);
+		return;
+	}
+	else
+	{
+		perror("fork");
+		free(program_path);
+		return;
+	}
+}
+
+/**
+ * execute_external_command - execute external command
+ * @args: command to be executed
+ * Return: void
+ */
+void execute_external_command(char **args)
+{
+	char *path, *program_path,*copy_path;
+
+	path = getenv("PATH");
+	if (path == NULL)
+	{
+		perror("PATH Environment Not Set\n");
+		return;
+	}
+	copy_path = _strdup(path);
+	program_path = find_program_path(args[0], copy_path);
+	if (program_path == NULL)
+	{
+		perror(args[0]);
+		return;
+	}
+
+	execute_command_help_for_external(program_path, args);
 }

@@ -32,7 +32,7 @@ char *_strncpy(char *s1, char *s2, int len);
 char *_strncat(char *s1, char *s2, int len);
 char *_strchr(char *s2, int c);
 int is_delim(char c, const char *delim);
-/** string module function 3*/
+/** atio */
 int _atoi(char *s);
 /**  read / write  module function 3*/
 int _putchar(char c);
@@ -46,6 +46,8 @@ char **parse_input(char *input);
 /*** executor function*/
 void execute_command(char **args);
 void execute_external_command(char **args);
+void execute_command_help_for_external(char *program_path, char **args);
+char *find_program_path(char *program_name, char *path);
 /**builtins.c*/
 void execute_exit(char **args);
 void execute_env(char **args);
