@@ -115,7 +115,7 @@ void execute_command_help_for_external(char *program_path, char **args)
  */
 void execute_external_command(char **args)
 {
-	char *path, *program_path,*copy_path;
+	char *path, *program_path, *copy_path;
 
 	path = getenv("PATH");
 	if (path == NULL)

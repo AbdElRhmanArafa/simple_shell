@@ -42,7 +42,8 @@ void execute_setenv(char **args)
 {
 	if (args[1] == NULL || args[2] == NULL)
 	{
-		fprintf(stderr, "Usage: setenv Varible value\n");
+		_puts_NewLine("Usage: uetenv Varible value");
+		perror("setenv");
 		return;
 	}
 	if (setenv(args[1], args[2], 1) == -1)
@@ -60,7 +61,8 @@ void execute_unsetenv(char **args)
 {
 	if (args[1] == NULL)
 	{
-		fprintf(stderr, "Usage: unsetenv Varible value\n");
+		_puts_NewLine("Usage: unsetenv Varible value");
+		perror("unsetenv");
 		return;
 	}
 	if (unsetenv(args[1]) == -1)
@@ -81,7 +83,7 @@ void execute_cd(char **args)
 		home_path = getenv("HOME");
 		if (home_path == NULL)
 		{
-			fprintf(stderr, "cd: HOME not set\n");
+			perror("getenv");
 			return;
 		}
 		change_current_directory(home_path);
@@ -91,7 +93,7 @@ void execute_cd(char **args)
 		previous_path = getenv("OLDPWD");
 		if (previous_path == NULL)
 		{
-			fprintf(stderr, "cd: OLDPWD not set\n");
+			perror("getenv");
 			return;
 		}
 		change_current_directory(previous_path);
@@ -100,7 +102,7 @@ void execute_cd(char **args)
 	{
 		if (!is_directory(args[1]))
 		{
-			fprintf(stderr, "cd: %s: No such directory\n", args[1]);
+			perror(args[1]);
 			return;
 		}
 		change_current_directory(args[1]);

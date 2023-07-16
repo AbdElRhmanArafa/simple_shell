@@ -43,7 +43,7 @@ void _puts(char *str)
  * @delim: specified delimiter
  * Return: array of  string after parse
  */
-char *_strtok(char *s, const char *delim)
+char *_strtok(char *s, char *delim)
 {
 	static char *next_token;
 	char *token_start = s;
@@ -54,7 +54,7 @@ char *_strtok(char *s, const char *delim)
 	if (s == NULL)
 		return (NULL);
 
-	while (*s != '\0' && strchr(delim, *s) != NULL)
+	while (*s != '\0' && _strchr(delim, *s) != NULL)
 	{
 		s++;
 	}
@@ -67,7 +67,7 @@ char *_strtok(char *s, const char *delim)
 
 	token_start = s;
 
-	while (*s != '\0' && strchr(delim, *s) == NULL)
+	while (*s != '\0' && _strchr(delim, *s) == NULL)
 	{
 		s++;
 	}
@@ -80,7 +80,7 @@ char *_strtok(char *s, const char *delim)
 		next_token = s + 1;
 	}
 
-	return (strdup(token_start));
+	return (_strdup(token_start));
 }
 
 /**

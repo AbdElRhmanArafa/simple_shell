@@ -25,13 +25,13 @@ int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
-char *_strcpy(char *dest, const char *src);
+char *_strcpy(char *dest, char *src);
 /** string module function 2*/
-int _start_with(const char *s1, const char *s2);
+int _start_with(char *s1, char *s2);
 char *_strncpy(char *s1, char *s2, int len);
 char *_strncat(char *s1, char *s2, int len);
 char *_strchr(char *s2, int c);
-int is_delim(char c, const char *delim);
+int is_delim(char c, char *delim);
 /** atio */
 int _atoi(char *s);
 /**  read / write  module function 3*/
@@ -39,7 +39,7 @@ int _putchar(char c);
 void _puts_NewLine(char *);
 void _puts(char *);
 char *my_getline(void);
-char *_strtok(char *s, const char *delim);
+char *_strtok(char *s, char *delim);
 /*** shell_utils function*/
 void prompt(char *path);
 char **parse_input(char *input);
@@ -59,6 +59,7 @@ int is_directory(char *path);
 int change_directory(char *path);
 int update_directory_env(char *current_path, char *previous_path);
 void change_current_directory(char *path);
+char *get_absolute_path(char *path, char *current_path);
 /** Mode_of_shell.c*/
 void handle_noninteractive_mode(int argc, char *argv[]);
 void handle_interactive_mode(void);

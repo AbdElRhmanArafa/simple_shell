@@ -6,7 +6,7 @@
  *
  * Return: 1 if s1 starts with s2, 0 otherwise
  */
-int _start_with(const char *s1, const char *s2)
+int _start_with(char *s1, char *s2)
 {
 	while (*s2)
 	{
@@ -72,7 +72,6 @@ char *_strchr(char *s, int c)
 		s++;
 	}
 
-
 	if (c == '\0')
 		return (s);
 
@@ -86,7 +85,7 @@ char *_strchr(char *s, int c)
  *
  * Return: 1 if the character is a delimiter, 0 otherwise
  */
-int is_delim(char c, const char *delim)
+int is_delim(char c, char *delim)
 {
 	while (*delim != '\0')
 	{

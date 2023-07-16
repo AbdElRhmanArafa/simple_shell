@@ -42,36 +42,28 @@ int update_directory_env(char *current_path, char *previous_path)
 {
 	if (setenv("PWD", current_path, 1) != 0)
 	{
-		fprintf(stderr, "Failed to update the PWD environment variable\n");
+		perror("setenv");
 		return (0);
 	}
 
 	if (setenv("OLDPWD", previous_path, 1) != 0)
 	{
-		fprintf(stderr, "Failed to update the OLDPWD environment variable\n");
+		perror("setenv");
 		return (0);
 	}
 
 	return (1);
 }
-
 /**
- * change_current_directory - Changes the current directory
- * to the specified path this call Abive.
- * @path: path to check
- * Return: void
+ * get_absolute_path - get the absolute path of a directory
+ * @path: the path to convert to an absolute path
+ * @current_path: the current working directory
+ * Return: the absolute path of the directory, or NULL if an error occurs
  */
-void change_current_directory(char *path)
+char *get_absolute_path(char *path, char *current_path)
 {
-	char *current_path = getcwd(NULL, 0), *absolute_path = NULL,
-		 *previous_path, *last_slash;
+	char *absolute_path, *last_slash;
 
-	if (current_path == NULL)
-	{
-		perror("getcwd");
-		return;
-	}
-	previous_path = current_path;
 	if (path[0] == '/')
 		absolute_path = _strdup(path);
 	else
@@ -80,7 +72,7 @@ void change_current_directory(char *path)
 		if (absolute_path == NULL)
 		{
 			perror("malloc");
-			return;
+			return (NULL);
 		}
 		if (_strcmp(path, ".") == 0)
 			_strcpy(absolute_path, current_path);
@@ -104,9 +96,35 @@ void change_current_directory(char *path)
 			_strcat(absolute_path, path);
 		}
 	}
+	return (absolute_path);
+}
+/**
+ * change_current_directory - change the current working directory
+ * @path: the path to change to
+ * Return: void
+ */
+void change_current_directory(char *path)
+{
+	char *current_path, *absolute_path, *previous_path;
+
+	current_path = getcwd(NULL, 0);
+	if (current_path == NULL)
+	{
+		perror("getcwd");
+		return;
+	}
+
+	absolute_path = get_absolute_path(path, current_path);
+	if (absolute_path == NULL)
+	{
+		free(current_path);
+		return;
+	}
+	previous_path = current_path;
 	if (!change_directory(absolute_path))
 	{
 		free(absolute_path);
+		free(current_path);
 		return;
 	}
 	if (!update_directory_env(absolute_path, previous_path))
