@@ -58,25 +58,25 @@ char *_strncat(char *s1, char *s2, int len)
 
 /**
  * _strchr - Locates the first occurrence of character 's1' in string 's2'
- * @s1: Character to be found
- * @s2: int  to be searched
+ * @s: Character to be found
+ * @c: int  to be searched
  * Return: Pointer to the first occurrence of 's1'in's2'
  * or NULL if not found
  */
-char *_strchr(char *s2, int c)
+char *_strchr(char *s, int c)
 {
-    while (*s2 != '\0')
-    {
-        if (*s2 == c)
-            return (s2);
-        s2++;
-    }
-    
+	while (*s2 != '\0')
+	{
+		if (*s2 == c)
+			return (s2);
+		s2++;
+	}
 
-    if (c == '\0')
-        return (s2);
-    
-    return (NULL); 
+
+	if (c == '\0')
+		return (s2);
+
+	return (NULL);
 }
 
 /**
