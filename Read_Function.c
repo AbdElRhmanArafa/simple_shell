@@ -45,42 +45,42 @@ void _puts(char *str)
  */
 char *_strtok(char *s, const char *delim)
 {
-    static char *next_token;
-    char *token_start = s;
+	static char *next_token;
+	char *token_start = s;
 
-    if (s == NULL)
-        s = next_token;
+	if (s == NULL)
+		s = next_token;
 
-    if (s == NULL)
-        return NULL;
+	if (s == NULL)
+		return (NULL);
 
-    while (*s != '\0' && strchr(delim, *s) != NULL)
-    {
-        s++;
-    }
+	while (*s != '\0' && strchr(delim, *s) != NULL)
+	{
+		s++;
+	}
 
-    if (*s == '\0')
-    {
-        next_token = NULL;
-        return NULL;
-    }
+	if (*s == '\0')
+	{
+		next_token = NULL;
+		return (NULL);
+	}
 
-    token_start = s;
+	token_start = s;
 
-    while (*s != '\0' && strchr(delim, *s) == NULL)
-    {
-        s++;
-    }
+	while (*s != '\0' && strchr(delim, *s) == NULL)
+	{
+		s++;
+	}
 
-    if (*s == '\0')
-        next_token = NULL;
-    else
-    {
-        *s = '\0';
-        next_token = s + 1;
-    }
+	if (*s == '\0')
+		next_token = NULL;
+	else
+	{
+		*s = '\0';
+		next_token = s + 1;
+	}
 
-    return strdup(token_start);
+	return (strdup(token_start));
 }
 
 /**
