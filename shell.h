@@ -23,9 +23,9 @@
  */
 typedef struct variables
 {
-	char **av;
 	char *buffer;
 	char **env;
+	char **av;
 	size_t count;
 	char **argv;
 	int status;
