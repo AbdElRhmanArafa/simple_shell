@@ -5,11 +5,7 @@
  * @vars: variables
  * Return: pointer to the function or NULL
  */
-/**
- * find_builtin_function - checks if the command is a builtin
- * @vars: variables
- * Return: pointer to the function or NULL
- */
+
 void (*find_builtin_function(vars_t *vars))(vars_t *vars)
 {
 	unsigned int i;
