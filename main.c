@@ -1,21 +1,15 @@
 #include "shell.h"
 
-/* global variable for ^C handling */
-unsigned int sig_flag;
-
 /**
  * sig_handler - handles ^C signal interupt
- * @uuv: unused variable (required for signal function prototype)
+ * @sig: signal number
  *
  * Return: void
  */
-static void sig_handler(int uuv)
+static void sig_handler(int sig)
 {
-	(void)uuv;
-	if (sig_flag == 0)
+	if (sig == SIGINT)
 		print_string("\n$ ");
-	else
-		print_string("\n");
 }
 
 /**
@@ -26,23 +20,27 @@ static void sig_handler(int uuv)
  *
  * Return: 0 or exit status, or ?
  */
-int main(int argc __attribute__((unused)), char **argv, char **environment)
+int main(int argc _attribute_((unused)), char **argv, char **environment)
 {
 	size_t len_buffer = 0;
 	unsigned int is_pipe = 0, i;
 	vars_t vars = {NULL, NULL, NULL, 0, NULL, 0, NULL};
+	struct sigaction sa;
 
 	vars.argv = argv;
 	vars.env = create_shell_env(environment);
-	signal(SIGINT, sig_handler);
+	sa.sa_handler = sig_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		perror("sigaction");
+
 	if (!isatty(STDIN_FILENO))
 		is_pipe = 1;
 	if (is_pipe == 0)
 		print_string("$ ");
-	sig_flag = 0;
 	while (getline(&(vars.buffer), &len_buffer, stdin) != -1)
 	{
-		sig_flag = 1;
 		vars.count++;
 		vars.commands = tokenize(vars.buffer, ";");
 		for (i = 0; vars.commands && vars.commands[i] != NULL; i++)
@@ -55,7 +53,6 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 		}
 		free(vars.buffer);
 		free(vars.commands);
-		sig_flag = 0;
 		if (is_pipe == 0)
 			print_string("$ ");
 		vars.buffer = NULL;
