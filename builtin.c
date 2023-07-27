@@ -52,9 +52,9 @@ void run_exit(vars_t *vars)
 		vars->status = status;
 	}
 
+	free(vars->commands);
 	free(vars->buffer);
 	free(vars->av);
-	free(vars->commands);
 	free_shell_env(vars->env);
 	exit(vars->status);
 }
