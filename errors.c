@@ -1,42 +1,42 @@
 #include "shell.h"
 
 /**
- * print_error - prints error messages to standard error
+ * print_error_msg - prints error messages to standard error
  * @vars: pointer to struct of variables
  * @msg: message to print
  *
  * Return: void
  */
-void print_error(vars_t *vars, char *msg)
+void print_error_msg(vars_t *vars, char *msg)
 {
-	char *count;
+	char *count_str;
 
-	_puts2(vars->argv[0]);
-	_puts2(": ");
-	count = _uitoa(vars->count);
-	_puts2(count);
-	free(count);
-	_puts2(": ");
-	_puts2(vars->av[0]);
+	_puts_stderr(vars->argv[0]);
+	_puts_stderr(": ");
+	count_str = _uitoa_str(vars->count);
+	_puts_stderr(count_str);
+	free(count_str);
+	_puts_stderr(": ");
+	_puts_stderr(vars->av[0]);
 	if (msg)
 	{
-		_puts2(msg);
+		_puts_stderr(msg);
 	}
 	else
 		perror("");
 }
 
 /**
- * _puts2 - prints a string to standard error
+ * _puts_stderr - prints a string to standard error
  * @str: string to print
  *
  * Return: void
  */
-void _puts2(char *str)
+void _puts_stderr(char *str)
 {
 	ssize_t num, len;
 
-	num = _strlen(str);
+	num = string_length(str);
 	len = write(STDERR_FILENO, str, num);
 	if (len != num)
 	{
@@ -47,12 +47,12 @@ void _puts2(char *str)
 }
 
 /**
- * _uitoa - converts an unsigned int to a string
+ * _uitoa_str - converts an unsigned int to a string
  * @count: unsigned int to convert
  *
  * Return: pointer to the converted string
  */
-char *_uitoa(unsigned int count)
+char *_uitoa_str(unsigned int count)
 {
 	char *numstr;
 	unsigned int tmp, digits;

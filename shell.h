@@ -46,15 +46,15 @@ typedef struct builtins
 char **create_shell_env(char **env);
 void free_shell_env(char **env);
 
-ssize_t _puts(char *str);
-char *_strdup(char *strtodup);
-int _strcmpr(char *strcmp1, char *strcmp2);
-char *_strcat(char *strc1, char *strc2);
-unsigned int _strlen(char *str);
+ssize_t print_string(char *str);
+char *duplicate_string(char *strtodup);
+int compare_strings(char *strcmp1, char *strcmp2);
+char *concatenate_strings(char *strc1, char *strc2);
+unsigned int string_length(char *str);
 
 char **tokenize(char *buffer, char *delimiter);
-char **_realloc(char **ptr, size_t *size);
-char *new_strtok(char *str, const char *delim);
+char **reallocate_array(char **ptr, size_t *size);
+char *custom_strtok(char *str, const char *delim);
 
 void (*find_builtin_function(vars_t *vars))(vars_t *vars);
 void run_exit(vars_t *vars);
@@ -66,6 +66,7 @@ void add_environment_variable(vars_t *vars);
 char **find_env_variable(char **env, char *key);
 char *create_env_variable(char *key, char *value);
 int convert_string_to_integer(char *str);
+unsigned int is_character_in_string(char c, const char *str);
 
 
 void check_for_path(vars_t *vars);
@@ -74,8 +75,8 @@ char *find_path(char **env);
 int execute_cwd(vars_t *vars);
 int check_for_dir(char *str);
 
-void print_error(vars_t *vars, char *msg);
-void _puts2(char *str);
-char *_uitoa(unsigned int count);
+void print_error_msg(vars_t *vars, char *msg);
+void _puts_stderr(char *str);
+char *_uitoa_str(unsigned int count);
 
 #endif /* _SHELL_H_ */

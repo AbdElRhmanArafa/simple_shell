@@ -16,7 +16,7 @@ void add_environment_variable(vars_t *vars)
 	newenv = malloc(sizeof(char *) * (i + 2));
 	if (newenv == NULL)
 	{
-		print_error(vars, NULL);
+		print_error_msg(vars, NULL);
 		vars->status = 127;
 		run_exit(vars);
 	}
@@ -25,7 +25,7 @@ void add_environment_variable(vars_t *vars)
 	newenv[i] = create_env_variable(vars->av[1], vars->av[2]);
 	if (newenv[i] == NULL)
 	{
-		print_error(vars, NULL);
+		print_error_msg(vars, NULL);
 		free(vars->buffer);
 		free(vars->commands);
 		free(vars->av);
@@ -49,7 +49,7 @@ char **find_env_variable(char **env, char *key)
 {
 	unsigned int i, j, key_len;
 
-	key_len = _strlen(key);
+	key_len = string_length(key);
 	for (i = 0; env[i] != NULL; i++)
 	{
 		for (j = 0; j < key_len; j++)
@@ -73,8 +73,8 @@ char *create_env_variable(char *key, char *value)
 	unsigned int key_len, value_len, i, j;
 	char *new_env_var;
 
-	key_len = _strlen(key);
-	value_len = _strlen(value);
+	key_len = string_length(key);
+	value_len = string_length(value);
 	new_env_var = malloc(sizeof(char) * (key_len + value_len + 2));
 	if (new_env_var == NULL)
 		return (NULL);

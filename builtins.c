@@ -22,7 +22,7 @@ void (*find_builtin_function(vars_t *vars))(vars_t *vars)
 
 	for (i = 0; builtins[i].name != NULL; i++)
 	{
-		if (_strcmpr(vars->av[0], builtins[i].name) == 0)
+		if (compare_strings(vars->av[0], builtins[i].name) == 0)
 			break;
 	}
 
@@ -40,15 +40,15 @@ void run_exit(vars_t *vars)
 {
 	int status;
 
-	if (_strcmpr(vars->av[0], "exit") == 0 && vars->av[1] != NULL)
+	if (compare_strings(vars->av[0], "exit") == 0 && vars->av[1] != NULL)
 	{
 		status = convert_string_to_integer(vars->av[1]);
 		if (status == -1)
 		{
 			vars->status = 2;
-			print_error(vars, ": Illegal number: ");
-			_puts2(vars->av[1]);
-			_puts2("\n");
+			print_error_msg(vars, ": Illegal number: ");
+			print_string(vars->av[1]);
+			print_string("\n");
 			free(vars->commands);
 			vars->commands = NULL;
 			return;
@@ -74,8 +74,8 @@ void show_env(vars_t *vars)
 
 	for (i = 0; vars->env[i]; i++)
 	{
-		_puts(vars->env[i]);
-		_puts("\n");
+		print_string(vars->env[i]);
+		print_string("\n");
 	}
 	vars->status = 0;
 }
@@ -93,7 +93,7 @@ void run_setenv(vars_t *vars)
 
 	if (vars->av[1] == NULL || vars->av[2] == NULL)
 	{
-		print_error(vars, ": Incorrect number of arguments\n");
+		print_error_msg(vars, ": Incorrect number of arguments\n");
 		vars->status = 2;
 		return;
 	}
@@ -106,7 +106,7 @@ void run_setenv(vars_t *vars)
 		var = create_env_variable(vars->av[1], vars->av[2]);
 		if (var == NULL)
 		{
-			print_error(vars, NULL);
+			print_error_msg(vars, NULL);
 			free(vars->buffer);
 			free(vars->commands);
 			free(vars->av);
@@ -133,7 +133,7 @@ void run_unsetenv(vars_t *vars)
 
 	if (vars->av[1] == NULL)
 	{
-		print_error(vars, ": Incorrect number of arguments\n");
+		print_error_msg(vars, ": Incorrect number of arguments\n");
 		vars->status = 2;
 		return;
 	}
@@ -141,7 +141,7 @@ void run_unsetenv(vars_t *vars)
 	key = find_env_variable(vars->env, vars->av[1]);
 	if (key == NULL)
 	{
-		print_error(vars, ": No variable to unset");
+		print_error_msg(vars, ": No variable to unset");
 		return;
 	}
 
@@ -151,7 +151,7 @@ void run_unsetenv(vars_t *vars)
 	newenv = malloc(sizeof(char *) * i);
 	if (newenv == NULL)
 	{
-		print_error(vars, NULL);
+		print_error_msg(vars, NULL);
 		vars->status = 127;
 		run_exit(vars);
 	}

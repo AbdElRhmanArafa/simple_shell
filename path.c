@@ -15,11 +15,11 @@ int path_execute(char *command, vars_t *vars)
 	{
 		child_pid = fork();
 		if (child_pid == -1)
-			print_error(vars, NULL);
+			print_error_msg(vars, NULL);
 		if (child_pid == 0)
 		{
 			if (execve(command, vars->av, vars->env) == -1)
-				print_error(vars, NULL);
+				print_error_msg(vars, NULL);
 		}
 		else
 		{
@@ -35,7 +35,7 @@ int path_execute(char *command, vars_t *vars)
 	}
 	else
 	{
-		print_error(vars, ": Permission denied\n");
+		print_error_msg(vars, ": Permission denied\n");
 		vars->status = 126;
 	}
 	return (0);
@@ -84,11 +84,11 @@ void check_for_path(vars_t *vars)
 		path = find_path(vars->env);
 		if (path != NULL)
 		{
-			path_dup = _strdup(path + 5);
+			path_dup = duplicate_string(path + 5);
 			path_tokens = tokenize(path_dup, ":");
 			for (i = 0; path_tokens && path_tokens[i]; i++, free(check))
 			{
-				check = _strcat(path_tokens[i], vars->av[0]);
+				check = concatenate_strings(path_tokens[i], vars->av[0]);
 				if (stat(check, &buf) == 0)
 				{
 					r = path_execute(check, vars);
@@ -105,7 +105,7 @@ void check_for_path(vars_t *vars)
 		}
 		if (path == NULL || path_tokens[i] == NULL)
 		{
-			print_error(vars, ": not found\n");
+			print_error_msg(vars, ": not found\n");
 			vars->status = 127;
 		}
 		free(path_tokens);
@@ -131,11 +131,11 @@ int execute_cwd(vars_t *vars)
 		{
 			child_pid = fork();
 			if (child_pid == -1)
-				print_error(vars, NULL);
+				print_error_msg(vars, NULL);
 			if (child_pid == 0)
 			{
 				if (execve(vars->av[0], vars->av, vars->env) == -1)
-					print_error(vars, NULL);
+					print_error_msg(vars, NULL);
 			}
 			else
 			{
@@ -151,12 +151,12 @@ int execute_cwd(vars_t *vars)
 		}
 		else
 		{
-			print_error(vars, ": Permission denied\n");
+			print_error_msg(vars, ": Permission denied\n");
 			vars->status = 126;
 		}
 			return (0);
 	}
-	print_error(vars, ": not found\n");
+	print_error_msg(vars, ": not found\n");
 	vars->status = 127;
 	return (0);
 }

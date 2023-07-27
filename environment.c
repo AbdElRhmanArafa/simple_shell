@@ -20,7 +20,7 @@ char **create_shell_env(char **env)
 		exit(1);
 	}
 	for (i = 0; env[i] != NULL; i++)
-		shell_env[i] = _strdup(env[i]);
+		shell_env[i] = duplicate_string(env[i]);
 	shell_env[i] = NULL;
 	return (shell_env);
 }

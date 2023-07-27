@@ -11,11 +11,11 @@ unsigned int sig_flag;
  */
 static void sig_handler(int uuv)
 {
-	(void) uuv;
+	(void)uuv;
 	if (sig_flag == 0)
-		_puts("\n$ ");
+		print_string("\n$ ");
 	else
-		_puts("\n");
+		print_string("\n");
 }
 
 /**
@@ -38,7 +38,7 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 	if (!isatty(STDIN_FILENO))
 		is_pipe = 1;
 	if (is_pipe == 0)
-		_puts("$ ");
+		print_string("$ ");
 	sig_flag = 0;
 	while (getline(&(vars.buffer), &len_buffer, stdin) != -1)
 	{
@@ -51,17 +51,17 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 			if (vars.av && vars.av[0])
 				if (find_builtin_function(&vars) == NULL)
 					check_for_path(&vars);
-		free(vars.av);
+			free(vars.av);
 		}
 		free(vars.buffer);
 		free(vars.commands);
 		sig_flag = 0;
 		if (is_pipe == 0)
-			_puts("$ ");
+			print_string("$ ");
 		vars.buffer = NULL;
 	}
 	if (is_pipe == 0)
-		_puts("\n");
+		print_string("\n");
 	free_shell_env(vars.env);
 	free(vars.buffer);
 	exit(vars.status);
