@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main_shell.h"
 
 /**
  * reallocate_array - reallocates a pointer to double the space

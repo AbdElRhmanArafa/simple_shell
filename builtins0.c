@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main_shell.h"
 
 /**
  * add_environment_variable - create a new environment variable

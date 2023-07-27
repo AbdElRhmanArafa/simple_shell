@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main_shell.h"
 /**
  * is_character_in_string - checks if a character is present in a string
  * @c: character to check

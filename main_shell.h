@@ -1,5 +1,5 @@
-#ifndef _SHELL_H_
-#define _SHELL_H_
+#ifndef _SHELL_H_MAIN
+#define _SHELL_H_MAIN
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,9 +23,9 @@
  */
 typedef struct variables
 {
+	char **av;
 	char *buffer;
 	char **env;
-	char **av;
 	size_t count;
 	char **argv;
 	int status;
@@ -79,4 +79,4 @@ void print_error_msg(vars_t *vars, char *msg);
 void _puts_stderr(char *str);
 char *_uitoa_str(unsigned int count);
 
-#endif 
+#endif /* _SHELL_H_ */

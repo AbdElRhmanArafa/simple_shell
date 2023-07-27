@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main_shell.h"
 
 /**
  * find_builtin_function - checks if the command is a builtin

@@ -1,6 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "simple_shell.h": "c"
+        "simple_shell.h": "c",
+        "main_shell.h": "c"
     }
 }
