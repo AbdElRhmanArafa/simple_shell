@@ -79,4 +79,4 @@ void print_error_msg(vars_t *vars, char *msg);
 void _puts_stderr(char *str);
 char *_uitoa_str(unsigned int count);
 
-#endif /* _SHELL_H_ */
+#endif 
