@@ -79,4 +79,6 @@ void print_error_msg(vars_t *vars, char *msg);
 void _puts_stderr(char *str);
 char *_uitoa_str(unsigned int count);
 
+void run_cd(vars_t *vars);
+
 #endif /* _SHELL_H_ */

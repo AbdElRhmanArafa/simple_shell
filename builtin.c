@@ -14,6 +14,7 @@ void (*find_builtin_function(vars_t *vars))(vars_t *vars)
 		{"env", show_env},
 		{"setenv", run_setenv},
 		{"unsetenv", run_unsetenv},
+		{"cd", run_cd},
 		{NULL, NULL}};
 
 	for (i = 0; builtins[i].name != NULL; i++)
